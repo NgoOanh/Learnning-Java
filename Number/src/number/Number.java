@@ -2,118 +2,81 @@ package number;
 
 import java.io.IOException;
 
-public class Number {
-	private String type;
-	private String value;
+public class Number<T> {
+	private T value;
 	public Number(){
-		type = "int";
-		value = "0";
+		value = null;
 	}
-	public Number(String type, String value)throws IOException{
-		if(type == "String" || type == "Bolean"){
+	public Number(T value)throws IOException{
+		String type = value.getClass().getSimpleName();
+		if(type.compareTo("String") == 0 || type.compareTo("Bolean") == 0){
 			throw new IOException();
 		}
-		this.type = type;
 		this.value = value;
 	}
-	public String getValue(){
+	public T getValue(){
 		return value;
 	}
-	public String getType(){
-		return type;
-	}
-	public Number addNumber(Number a)throws Exception{
-		if(this.type.compareTo(a.type) != 0){
+	public Number add(Number a)throws Exception{
+		String type1 = this.value.getClass().getSimpleName();
+		String type2 = a.value.getClass().getSimpleName();
+		if(type1.compareTo(type2) != 0){
 			throw new Exception("Invalid");
 		}
 		Number sum = new Number();
-		sum.type = this.type;
-		if(this.type == "int"){
-			int sum1;
-			sum1 = Integer.parseInt(this.value)+Integer.parseInt(a.value);
-			sum.value = String.valueOf(sum1);
+		if(type1.compareTo("Integer") == 0){
+			sum.value = Integer.valueOf(this.value.toString()) + Integer.valueOf(a.value.toString());
 		}
-		if(this.type == "float"){
-			float sum1;
-			sum1 = Float.parseFloat(this.value)+Float.parseFloat(a.value);
-			sum.value = String.valueOf(sum1);
-		}
-		if(this.type == "Double"){
-			double sum1;
-			sum1 = Double.parseDouble(this.value)+Double.parseDouble(a.value);
-			sum.value = String.valueOf(sum1);
+		if(type1.compareTo("Double") == 0){
+			sum.value = Double.valueOf(this.value.toString()) + Double.valueOf(a.value.toString());
 		}
 		return sum;
 	}
-	public Number subNumber(Number a)throws Exception{
-		if(this.type.compareTo(a.type) != 0){
+	public Number sub(Number a)throws Exception{
+		String type1 = this.value.getClass().getSimpleName();
+		String type2 = a.value.getClass().getSimpleName();
+		if(type1.compareTo(type2) != 0){
 			throw new Exception("Invalid");
 		}
 		Number sub = new Number();
-		sub.type = this.type;
-		if(this.type == "int"){
-			int sub1;
-			sub1 = Integer.parseInt(this.value)-Integer.parseInt(a.value);
-			sub.value = String.valueOf(sub1);
+		if(type1.compareTo("Integer") == 0){
+			sub.value = Integer.valueOf(this.value.toString()) - Integer.valueOf(a.value.toString());
 		}
-		if(this.type == "float"){
-			float sub1;
-			sub1 = Float.parseFloat(this.value)-Float.parseFloat(a.value);
-			sub.value = String.valueOf(sub1);
-		}
-		if(this.type == "Double"){
-			double sub1;
-			sub1 = Double.parseDouble(this.value)-Double.parseDouble(a.value);
-			sub.value = String.valueOf(sub1);
+		if(type1.compareTo("Double") == 0){
+			sub.value = Double.valueOf(this.value.toString()) - Double.valueOf(a.value.toString());
 		}
 		return sub;
 	}
-	public Number mulNumber(Number a)throws Exception{
-		if(this.type.compareTo(a.type) != 0){
+	public Number mul(Number a)throws Exception{
+		String type1 = this.value.getClass().getSimpleName();
+		String type2 = a.value.getClass().getSimpleName();
+		if(type1.compareTo(type2) != 0){
 			throw new Exception("Invalid");
 		}
 		Number mul = new Number();
-		mul.type = this.type;
-		if(this.type == "int"){
-			int mul1;
-			mul1 = Integer.parseInt(this.value)*Integer.parseInt(a.value);
-			mul.value = String.valueOf(mul1);
+		if(type1.compareTo("Integer") == 0){
+			mul.value = Integer.valueOf(this.value.toString()) * Integer.valueOf(a.value.toString());
 		}
-		if(this.type == "float"){
-			float mul1;
-			mul1 = Float.parseFloat(this.value)*Float.parseFloat(a.value);
-			mul.value = String.valueOf(mul1);
-		}
-		if(this.type == "Double"){
-			double mul1;
-			mul1 = Double.parseDouble(this.value)*Double.parseDouble(a.value);
-			mul.value = String.valueOf(mul1);
+		if(type1.compareTo("Double") == 0){
+			mul.value = Double.valueOf(this.value.toString()) * Double.valueOf(a.value.toString());
 		}
 		return mul;
 	}
-	public Number divNumber(Number a)throws Exception{
-		if(this.type.compareTo(a.type) != 0){
+	public Number div(Number a)throws Exception{
+		String type1 = this.value.getClass().getSimpleName();
+		String type2 = a.value.getClass().getSimpleName();
+		if(type1.compareTo(type2) != 0){
 			throw new Exception("Invalid");
 		}
-		if(a.value.compareTo("0") == 0){
+		if(a.value.toString().compareTo("0") == 0 || a.value.toString().compareTo("0.0") == 0){
 			throw new Exception("Demo = 0");
 		}
-		Number div= new Number();
-		div.type = this.type;
-		if(this.type == "Int"){
-			int div1;
-			div1 = Integer.parseInt(this.value)/Integer.parseInt(a.value);
-			div.value = String.valueOf(div1);
+		Number div = new Number();
+		if(type1.compareTo("Integer") == 0){
+			div.value = Integer.valueOf(this.value.toString()) / Integer.valueOf(a.value.toString());
 		}
-		if(this.type == "Float"){
-			float div1;
-			div1 = Float.parseFloat(this.value)/Float.parseFloat(a.value);
-			div.value = String.valueOf(div1);
-		}
-		if(this.type == "Double"){
-			double div1;
-			div1 = Double.parseDouble(this.value)/Double.parseDouble(a.value);
-			div.value = String.valueOf(div1);
+		if(type1.compareTo("Double") == 0){
+			div.value = Double.valueOf(this.value.toString()) / Double.valueOf(a.value.toString());
 		}
 		return div;
 	}
